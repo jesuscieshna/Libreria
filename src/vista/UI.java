@@ -145,4 +145,16 @@ public class UI extends JFrame {
 	protected JTextField[] getListaTextFieldsLibro() {
 		return panelLibro.getListaTextFields();
 	}
+	
+	protected JTextField getIsbnTextFields() {
+		return panelLibro.getListaTextFields()[0];
+	}
+	
+	protected void isbnTextBackground(int length) {
+		panelLibro.isbnTextBackground(length);
+	}
+	
+	protected JTextField getPrecioTextField() {
+		return panelLibro.getListaTextFields()[4];
+	}
 }

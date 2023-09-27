@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class PanelLabelsTextFields extends JPanel{
 			listaTextos[i]=nuevoJTextField;
 			i++;
 		}
+		setTextFields("");
 	}
 
 	public JTextField[] getListaTextFields() {
@@ -30,6 +32,14 @@ public class PanelLabelsTextFields extends JPanel{
 	public void setTextFields(String string) {
 		for (JTextField jTextField : listaTextos) {
 			jTextField.setText(string);
+		}
+	}
+	
+	public void isbnTextBackground(int length) {
+		if (length < 13) {
+			listaTextos[0].setBackground(new Color(255, 150, 150));
+		} else {
+			listaTextos[0].setBackground(new Color(255, 255, 255));
 		}
 	}
 	

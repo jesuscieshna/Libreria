@@ -13,7 +13,6 @@ public class GestionTabla {
 	}
 	
 	public JTable refrescar(JTable table) {
-		System.out.println("entra");
 		String[] columnas = Libro.PROPIEDADES;
 		DefaultTableModel tablaCompleta = new DefaultTableModel(libreria.devolverMatrizDatosLibros(), columnas);
 		table.setModel(tablaCompleta);

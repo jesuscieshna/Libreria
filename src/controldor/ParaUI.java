@@ -1,8 +1,11 @@
 package controldor;
 
+import java.awt.Color;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,26 +16,63 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Libro;
+import utils.Validaciones;
 import vista.UI;
 
 public class ParaUI extends UI{
-	Libreria libreria;
+	private Libreria libreria;
+	
 	public ParaUI() {
 		super();
 		libreria = new Libreria();
+		borrarCamposVista();
 		botonGuardarPulsado();
 		botonEliminarPulsado();
 		botonSalirPulsado();
 		anadirTableListener();
 		botonConsultarPulsado();
+		isbnValidation();
+		validatePrecio();
+		
+	}
+	
+	private void validatePrecio() {
+		JTextField precioText = getPrecioTextField();
+		precioText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String nuevo = String.valueOf(precioText.getText() + e.getKeyChar());
+				if(!Validaciones.validateNumber(nuevo)) {
+					e.consume();
+				}
+			}
+		});
+	}
+
+	private void isbnValidation() {
+		JTextField isbnText = getIsbnTextFields();
+		isbnText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				super.keyTyped(e);
+				String numero = isbnText.getText();
+				String nuevoNumero = String.valueOf(e.getKeyChar());
+				if (!Validaciones.validateisbn(numero, nuevoNumero)) {
+					e.consume();
+					isbnTextBackground(numero.length());
+				} else {
+					isbnTextBackground(numero.length()+1);
+				}
+
+			}
+		});
+		
 	}
 
 	private void botonConsultarPulsado() {
 		consultarButton.addActionListener(e -> {
 			String isbn = JOptionPane.showInputDialog("introduce el ISBN");
-			System.out.println(isbn);
 			String datos = libreria.findLibro(isbn);
-			
 			JOptionPane.showMessageDialog(rootPane, datos);
 		});
 		
